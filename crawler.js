@@ -120,6 +120,17 @@ var datasources = {
     next: '<%= han_pol.next %>',
     parse: '<%= han_pol.parse %>',
   },
+
+  han_soc: {
+    press: '<%= han_pol.press %>',
+    category: '사회',
+    url: function (p) {
+      return 'http://www.hani.co.kr/arti/society/list'+p+'.html';
+    },
+    next: '<%= han_pol.next %>',
+    parse: '<%= han_pol.parse %>',
+  },
+
 };
 
 var datasource = datasources[sourceId];
