@@ -131,6 +131,45 @@ var datasources = {
     parse: '<%= han_pol.parse %>',
   },
 
+  chosun_pol: {
+    press: '조선',
+    category: '정치',
+    url: function (p) {
+      return 'http://news.chosun.com/svc/list_in/list.html?catid=2&source=1&pn=' + p;
+    },
+    next: function (p) {
+      return p + 1;
+    },
+    parse: function (done) {
+
+      var $articleList = $('#list_area .article');
+      if ($articleList.length === 0) {
+        throw new Error('empty article list');
+      }
+
+      $articleList.each(function (index, elem) {
+        var $elem = $(elem);
+        var $title = $elem.find('#tit');
+
+        if ($title.length === 0) { return; }
+
+        var title = $title.text().trim();
+
+        var $date = $elem.find('#date');
+        var date = moment($date.text(),  "YYYY.MM.DD");
+
+        if (!date.isValid()) {
+          throw new Error('invalid date: ' + $date.text());
+        }
+
+        var body = $elem.find('#substract').text().trim();
+
+        done(date, title, body);
+      });
+    },
+
+  }
+
 };
 
 var datasource = datasources[sourceId];
@@ -207,7 +246,7 @@ function openList (p) {
 
           // Skip
           if (!res || !res.status) {
-            __utils__.log('skipped url: ' + 'http://52.69.103.208:9200/' + 
+            __utils__.log('skipped url: ' + 'http://52.69.103.208:9200/' +
                           esIndex + '/' + sourceId + '/' + id + '/_update', 'warning');
             return;
           }
