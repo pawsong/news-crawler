@@ -139,7 +139,7 @@ function openList (p) {
             throw new Error('Invalid res status: ' + (res ? res.status : -1));
           }
 
-          __utils__.log('[' + date.format() + '] ' + title, 'info');
+          __utils__.log('[' + date.format() + '] (' + id + ') ' + title, 'info');
         });
       } catch (e) {
         return e.message;
