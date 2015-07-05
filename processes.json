@@ -1,0 +1,15 @@
+{
+  "apps" : [{
+    "name"       : "donga_pol",
+    "args"       : ["--source=donga_pol"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "donga_ent",
+    "args"       : ["--source=donga_ent"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }]
+}
