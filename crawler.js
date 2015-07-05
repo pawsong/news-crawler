@@ -205,8 +205,15 @@ function openList (p) {
             async: false,
           });
 
-          if (!res || !res.status || res.status < 200 || res.status >= 300) {
-            throw new Error('Invalid res status: ' + (res ? res.status : -1));
+          // Skip
+          if (!res || !res.status) {
+            __utils__.log('skipped url: ' + 'http://52.69.103.208:9200/' + 
+                          esIndex + '/' + sourceId + '/' + id + '/_update', 'warning');
+            return;
+          }
+
+          if (res.status < 200 || res.status >= 300) {
+            throw new Error('Invalid res status: ' + res.status);
           }
 
           __utils__.log('[' + date.format() + '] (' + id + ') ' + title, 'info');
