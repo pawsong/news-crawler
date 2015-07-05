@@ -61,6 +61,16 @@ var datasources = {
     next: '<%= donga_pol.next %>',
     parse: '<%= donga_pol.parse %>',
   },
+
+  donga_soc: {
+    press: '<%= donga_pol.press %>',
+    category: '사회',
+    url: function (p) {
+      return 'http://news.donga.com/List/03?p='+p+'&ymd=&m=';
+    },
+    next: '<%= donga_pol.next %>',
+    parse: '<%= donga_pol.parse %>',
+  },
 };
 
 var datasource = datasources[sourceId];
