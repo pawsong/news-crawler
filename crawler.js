@@ -190,6 +190,50 @@ var datasources = {
     parse: '<%= chosun_pol.parse %>',
   },
 
+  newsen_bc: {
+    press: '뉴스엔',
+    category: '연예',
+    url: function (p) {
+      return 'http://www.newsen.com/news_list.php?code=100100&vm=list&page=' + p;
+    },
+    next: function (p) {
+      return p + 1;
+    },
+    parse: function (done) {
+
+      var $articleList = $('table[cellspacing="6"] > tbody > tr');
+      if ($articleList.length === 0) {
+        throw new Error('empty article list');
+      }
+
+      $articleList.each(function (index, elem) {
+        var $elem = $(elem);
+        var $tr = $elem.find('table tr');
+
+        if ($tr.length !== 2) { return; }
+
+        var $upper = $($tr[0]);
+        var $lower = $($tr[1]);
+
+        var $td = $upper.find('td');
+
+        if ($td.length !== 2) { return; }
+
+        var title = $($td[0]).text().trim();
+        var datestr = $($td[1]).text();
+
+        var date = moment(datestr,  "YYYY-MM-DD HH:mm");
+
+        if (!date.isValid()) {
+          throw new Error('invalid date: ' + datestr);
+        }
+
+        var body = $lower.text().trim();
+
+        done(date, title, body);
+      });
+    },
+  },
 
 };
 
