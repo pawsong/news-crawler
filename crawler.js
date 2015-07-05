@@ -71,6 +71,44 @@ var datasources = {
     next: '<%= donga_pol.next %>',
     parse: '<%= donga_pol.parse %>',
   },
+  han_pol: {
+    press: '한겨레',
+    category: '정치',
+    url: function (p) {
+      return 'http://www.hani.co.kr/arti/politics/politics_general/list' + p + '.html';
+    },
+    next: function (p) {
+      return p + 1;
+    },
+    parse: function (done) {
+
+      var $articleList = $('.list');
+      if ($articleList.length === 0) {
+        throw new Error('empty article list');
+      }
+
+      $articleList.each(function (index, elem) {
+        var $elem = $(elem);
+        var $title = $elem.find('.article-title');
+
+        if ($title.length === 0) { return; }
+
+        var title = $title.text().trim();
+
+        var $prologue = $elem.find('.article-prologue');
+        var $date = $prologue.find('.date');
+        var date = moment($date.text(),  "YYYY-MM-DD HH:mm");
+
+        if (!date.isValid()) {
+          throw new Error('invalid date: ' + $date.text());
+        }
+
+        var body = $prologue.find('a').text().trim();
+
+        done(date, title, body);
+      });
+    },
+  },
 };
 
 var datasource = datasources[sourceId];
