@@ -76,7 +76,7 @@ var datasources = {
     press: '한겨레',
     category: '정치',
     url: function (p) {
-      return 'http://www.hani.co.kr/arti/politics/politics_general/list' + p + '.html';
+      return 'http://www.hani.co.kr/arti/politics/list' + p + '.html';
     },
     next: function (p) {
       return p + 1;
