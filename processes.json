@@ -11,5 +11,47 @@
     "script"     : "./crawler.js",
     "exec_interpreter": "casperjs",
     "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "donga_soc",
+    "args"       : ["--source=donga_soc"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "han_pol",
+    "args"       : ["--source=han_pol"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "han_ent",
+    "args"       : ["--source=han_ent"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "han_soc",
+    "args"       : ["--source=han_soc"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "chosun_pol",
+    "args"       : ["--source=chosun_pol"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "chosun_ent",
+    "args"       : ["--source=chosun_ent"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "chosun_soc",
+    "args"       : ["--source=chosun_ent"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
   }]
 }
