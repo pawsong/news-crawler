@@ -168,7 +168,28 @@ var datasources = {
       });
     },
 
-  }
+  },
+
+  chosun_ent: {
+    press: '<%= chosun_pol.press %>',
+    category: '연예',
+    url: function (p) {
+      return 'http://news.chosun.com/svc/list_in/se_list.html?catid=G21&source=1&pn=' + p;
+    },
+    next: '<%= chosun_pol.next %>',
+    parse: '<%= chosun_pol.parse %>',
+  },
+
+  chosun_soc: {
+    press: '<%= chosun_pol.press %>',
+    category: '사회',
+    url: function (p) {
+      return 'http://news.chosun.com/svc/list_in/list.html?catid=3&source=1&pn=' + p;
+    },
+    next: '<%= chosun_pol.next %>',
+    parse: '<%= chosun_pol.parse %>',
+  },
+
 
 };
 
