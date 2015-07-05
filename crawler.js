@@ -21,10 +21,10 @@ var esIndex = 'gnews';
 
 var datasources = {
   donga_pol: {
-    press: '동아일보',
+    press: '동아',
     category: '정치',
     url: function (p) {
-      return 'http://news.donga.com/List/00?p='+p+'&ymd=&m=';
+      return 'http://news.donga.com/List/00?p='+p+'&ymd=&m=NP';
     },
     next: function (p) {
       return p + 16;
@@ -56,7 +56,7 @@ var datasources = {
     press: '<%= donga_pol.press %>',
     category: '연예',
     url: function (p) {
-      return 'http://news.donga.com/List/09?p='+p+'&ymd=&m=';
+      return 'http://news.donga.com/List/09?p='+p+'&ymd=&m=NP';
     },
     next: '<%= donga_pol.next %>',
     parse: '<%= donga_pol.parse %>',
@@ -66,7 +66,7 @@ var datasources = {
     press: '<%= donga_pol.press %>',
     category: '사회',
     url: function (p) {
-      return 'http://news.donga.com/List/03?p='+p+'&ymd=&m=';
+      return 'http://news.donga.com/List/03?p='+p+'&ymd=&m=NP';
     },
     next: '<%= donga_pol.next %>',
     parse: '<%= donga_pol.parse %>',
