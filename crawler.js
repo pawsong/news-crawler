@@ -71,6 +71,7 @@ var datasources = {
     next: '<%= donga_pol.next %>',
     parse: '<%= donga_pol.parse %>',
   },
+
   han_pol: {
     press: '한겨레',
     category: '정치',
@@ -108,6 +109,16 @@ var datasources = {
         done(date, title, body);
       });
     },
+  },
+
+  han_ent: {
+    press: '<%= han_pol.press %>',
+    category: '연예',
+    url: function (p) {
+      return 'http://www.hani.co.kr/arti/culture/entertainment/list'+p+'.html';
+    },
+    next: '<%= han_pol.next %>',
+    parse: '<%= han_pol.parse %>',
   },
 };
 
