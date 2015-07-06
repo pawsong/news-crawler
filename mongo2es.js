@@ -68,7 +68,7 @@ co(function* () {
 
       // 부사
       'MAG', // 일반 부사
-      'MAJ', // 접속 부사
+//      'MAJ', // 접속 부사
 
       // 감탄사
       'IC', //  감탄사
@@ -124,6 +124,7 @@ co(function* () {
     var stopwords = [
       '말',
       '자',
+      '지난',
       'document',
       'getelementbyid',
       'height',
