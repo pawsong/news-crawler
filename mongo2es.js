@@ -121,6 +121,11 @@ co(function* () {
       'COMPOUND', // 복합
     ];
 
+    var stopwords = [
+      '말',
+      '자',
+    ];
+
     yield client.indices.create({
       index: esidx,
       body: {
@@ -132,6 +137,10 @@ co(function* () {
                   type: 'keep_types',
                   types: types
                 },
+                word_filter: {
+                  type: 'stop',
+                  stopwords: stopwords
+                }
               },
               analyzer: {
                 korean: {
@@ -139,6 +148,7 @@ co(function* () {
                   tokenizer: 'mecab_ko_standard_tokenizer',
                   filter: [
                     'type_filter',
+                    'word_filter',
                   ]
                 },
               }
