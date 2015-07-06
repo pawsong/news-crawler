@@ -123,6 +123,7 @@ co(function* () {
 
     var stopwords = [
       '말',
+      '부',
       '자',
       '지난',
       '이날',
