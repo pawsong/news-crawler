@@ -18,21 +18,32 @@ var datasources = {
     },
     parseList: function ($) {
 
-      var $articleList = $('#list_area .article');
-      if ($articleList.length === 0) {
-        throw new Error('empty article list');
-      }
-
       var ret = [];
 
-      $articleList.each(function (index, elem) {
-        var $elem = $(elem);
-        var $link = $elem.find('#tit a');
+      var $articleList = $('#list_area .article');
+      if ($articleList.length !== 0) {
+        $articleList.each(function (index, elem) {
+          var $elem = $(elem);
+          var $link = $elem.find('#tit a');
 
-        if ($link.length === 0) { return; }
+          if ($link.length === 0) { return; }
 
-        ret.push($link.attr('href'));
-      });
+          ret.push($link.attr('href'));
+        });
+
+      } else {
+        $articleList = $('#list_area .list_item');
+        if (!$articleList.length === 0) { throw new Error('Empty list'); }
+
+        $articleList.each(function (index, elem) {
+          var $elem = $(elem);
+          var $link = $elem.find('dt a');
+
+          if ($link.length === 0) { return; }
+
+          ret.push($link.attr('href'));
+        });
+      }
 
       return ret;
     },
