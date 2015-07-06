@@ -156,7 +156,13 @@ var datasources = {
         var title = $title.text().trim();
 
         var $date = $elem.find('#date');
-        var date = moment($date.text(),  "YYYY.MM.DD");
+        var datestr = $date.text();
+
+        if (!datestr) {
+          return;
+        }
+
+        var date = moment(datestr,  "YYYY.MM.DD");
 
         if (!date.isValid()) {
           throw new Error('invalid date: ' + $date.text());

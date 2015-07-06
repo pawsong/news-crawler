@@ -53,5 +53,12 @@
     "script"     : "./crawler.js",
     "exec_interpreter": "casperjs",
     "exec_mode"  : "fork_mode"
+  }, {
+    "name"       : "newsen_bc",
+    "args"       : ["--source=newsen_bc"],
+    "script"     : "./crawler.js",
+    "exec_interpreter": "casperjs",
+    "exec_mode"  : "fork_mode"
+
   }]
 }

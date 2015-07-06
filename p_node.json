@@ -1,0 +1,11 @@
+{
+  "apps" : [{
+    "name"       : "donga_pol",
+    "script"     : "app.js",
+    "args"        : ["source=donga_pol"],
+  }, {
+    "name"       : "han_pol_1550",
+    "script"     : "app.js",
+    "args"        : ["source=han_pol"],
+  }]
+}
