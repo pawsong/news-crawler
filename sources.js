@@ -56,6 +56,8 @@ var datasources = {
         $title = $('#news_title_text_id');
       }
 
+      if ($title.length === 0) { return null; }
+
       var title = $title.text();
 
       // Find date
