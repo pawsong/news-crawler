@@ -54,7 +54,7 @@ co(function* () {
 //      'NNB', // 의존 명사
 //      'NNBC', // 단위를 나타내는 명사
       'NR', //  수사
-      'NP', //  대명사
+//      'NP', //  대명사
 
       // 용언
 //      'VV', //  동사
@@ -125,6 +125,8 @@ co(function* () {
       '말',
       '자',
       '지난',
+      '이날',
+      '때',
       'document',
       'getelementbyid',
       'height',
