@@ -1,0 +1,120 @@
+'use strict';
+
+var fs = require('fs');
+var mkdirp = require('mkdirp');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var request = require('request');
+var cheerio = require('cheerio');
+var md5 = require('MD5');
+var Iconv  = require('iconv').Iconv;
+var iconv = new Iconv('EUC-KR', 'UTF-8');
+
+var sources = require('./sources');
+
+var sourceId = 'chosun_pol';
+var source = sources(sourceId);
+
+mkdirp.sync(__dirname + '/.cache');
+
+var cacheFile = __dirname + '/.cache/p_' + sourceId;
+
+var co = require('co');
+
+var reqget = {
+  utf8: function (url) {
+    return function (done) {
+      request.get({
+        uri: url,
+        encoding: null,
+      }, done);
+    };
+  },
+  euc_kr: function (url) {
+    return function (done) {
+      request.get({
+        uri: url,
+        encoding: null,
+      }, function (err, res, body) {
+        if (err) { return done(err); }
+        var body = iconv.convert(body).toString();
+        var $ = cheerio.load(body);
+        done(null, $);
+      });
+    };
+  }
+};
+
+var ArticleSchema = new Schema({
+  article_id: { type: String, unique: true },
+  press: { type: String },
+  category: { type: String },
+  title: { type: String },
+  date: { type: Date },
+  body: { type: String },
+});
+
+var Article = mongoose.model('Article', ArticleSchema);
+
+co(function* () {
+
+  yield function (done) {
+    mongoose.connect('mongodb://localhost/gnews', done);
+  };
+
+  function* processList(p) {
+
+    fs.writeFileSync(cacheFile, p);
+
+    var url = source.url(p);
+
+    console.log('Request list: ', url);
+
+    var $list = yield reqget.euc_kr(url);
+
+    var links = source.parseList($list);
+
+    for (let i = 0; i < links.length; ++i) {
+
+      let link = links[i];
+
+      console.log('Request articles', link);
+      let $article = yield reqget.euc_kr(link);
+
+      let ret = source.parseArticle($article);
+
+      let rawId = [
+        sourceId,
+        ret.date.format('YYYY_MM_DD'),
+        ret.title,
+      ].join('_');
+
+      let id = md5(rawId);
+
+      yield Article.findOneAndUpdate({
+        article_id: id,
+      }, {
+        article_id: id,
+        sourceId: sourceId,
+        press: source.press,
+        category: source.category,
+        title: ret.title,
+        date: ret.date.toDate(),
+        body: ret.body,
+      }, { upsert: true });
+    }
+
+    yield processList(source.next(p));
+  }
+
+  var p = fs.existsSync(cacheFile) ? fs.readFileSync(cacheFile) : '1';
+  p = parseInt(p, 10);
+
+  yield processList(p);
+}).catch(function (err) {
+  console.error(err);
+  console.error('exit in 5 seconds...');
+  setTimeout(function () {
+    process.exit(1);
+  }, 1000 * 5);
+});

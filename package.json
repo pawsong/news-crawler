@@ -1,0 +1,29 @@
+{
+  "name": "news-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gifff/news-crawler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gifff/news-crawler/issues"
+  },
+  "homepage": "https://github.com/gifff/news-crawler#readme",
+  "dependencies": {
+    "MD5": "^1.2.2",
+    "cheerio": "^0.19.0",
+    "co": "^4.5.4",
+    "iconv": "^2.1.8",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.10.3",
+    "mongoose": "^4.0.6",
+    "request": "^2.58.0"
+  }
+}
