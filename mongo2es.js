@@ -124,6 +124,17 @@ co(function* () {
     var stopwords = [
       '말',
       '자',
+      'document',
+      'getelementbyid',
+      'height',
+      'if',
+      'width',
+      'artimg',
+      'ht',
+      'rate',
+      'style',
+      'var',
+      'wd',
     ];
 
     yield client.indices.create({
