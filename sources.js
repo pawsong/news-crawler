@@ -120,6 +120,9 @@ var datasources = {
 
       // Find title
       var $title = $('.article_title02 h1');
+
+      if ($title.length === 0) { return null; }
+
       var title = $title.text();
 
       // Find date
