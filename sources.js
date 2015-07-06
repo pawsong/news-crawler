@@ -51,6 +51,8 @@ var datasources = {
       var datetext = $('#date_text').text().trim().substr(5, 21);
       var date = moment(datetext, 'YYYY.MM.DD HH:mm');
 
+      if (!date.isValid()) { throw new Error('Invalid date: ' + datetext); }
+
       // Find body
       var body = '';
 
@@ -113,6 +115,8 @@ var datasources = {
       var datetext = $('.title_foot .date').text().trim();
       var date = moment(datetext, 'YYYY.MM.DD HH:mm:ss');
 
+      if (!date.isValid()) { throw new Error('Invalid date: ' + datetext); }
+
       // Find body
       var body = '';
 
@@ -130,6 +134,67 @@ var datasources = {
         date: date,
         body: body,
       };
+    }
+  },
+  han_pol: {
+    press: '한겨레',
+    category: '정치',
+    encoding: 'utf8',
+    url: function (p) {
+      return 'http://www.hani.co.kr/arti/politics/list' + p + '.html';
+    },
+    next: function (p) {
+      return p + 1;
+    },
+    parseList: function ($) {
+
+      var $articleList = $('.list');
+      if ($articleList.length === 0) {
+        throw new Error('empty article list');
+      }
+
+      var ret = [];
+
+      $articleList.each(function (index, elem) {
+        var $elem = $(elem);
+        var $title = $elem.find('.article-title');
+
+        if ($title.length === 0) { return; }
+
+        var $link = $title.children('a');
+        ret.push('http://www.hani.co.kr' + $link.attr('href'));
+      });
+
+      return ret;
+    },
+    parseArticle: function ($) {
+
+      var $article = $('#contents-article');
+
+      // Find title
+      var $title = $article.find('.title');
+      var title = $title.text();
+
+      // Find date
+      var datetext = $article.find('.date-time').text().trim().substr(4, 16);
+      var date = moment(datetext, 'YYYY-MM-DD HH:mm');
+
+      if (!date.isValid()) { throw new Error('Invalid date: ' + datetext); }
+
+      // Find body
+      var body = '';
+
+      var $newsbody = $article.find('.article-text');
+      body = $newsbody.text();
+
+      body = body.trim();
+
+      return {
+        title: title,
+        date: date,
+        body: body,
+      };
+
     }
   },
 };
