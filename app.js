@@ -102,7 +102,7 @@ co(function* () {
         title: ret.title,
         date: ret.date.toDate(),
         body: ret.body,
-        url: url,
+        url: link,
       }, { upsert: true });
     }
 
