@@ -95,6 +95,8 @@ co(function* () {
 
       let ret = source.parseArticle($article);
 
+      if (!ret) { continue; }
+
       let rawId = [
         sourceId,
         ret.date.format('YYYY_MM_DD'),
