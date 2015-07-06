@@ -1,14 +1,15 @@
 'use strict';
 
+var mongoose = require('mongoose');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 var request = require('request');
 var cheerio = require('cheerio');
 var md5 = require('MD5');
 var Iconv  = require('iconv').Iconv;
 var iconv = new Iconv('EUC-KR', 'UTF-8');
+
+var Article = require('./articlemodel.js');
 
 var sources = require('./sources');
 
@@ -55,18 +56,6 @@ var reqget = {
     };
   }
 };
-
-var ArticleSchema = new Schema({
-  article_id: { type: String, unique: true },
-  press: { type: String },
-  category: { type: String },
-  title: { type: String },
-  date: { type: Date },
-  body: { type: String },
-  url: { type: String },
-});
-
-var Article = mongoose.model('Article', ArticleSchema);
 
 co(function* () {
 
