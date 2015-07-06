@@ -152,6 +152,10 @@ co(function* () {
                   type: 'keep_types',
                   types: types
                 },
+                nnp_filter: {
+                  type: 'keep_types',
+                  types: ['NNP']
+                },
                 word_filter: {
                   type: 'stop',
                   stopwords: stopwords
@@ -164,6 +168,13 @@ co(function* () {
                   filter: [
                     'type_filter',
                     'word_filter',
+                  ]
+                },
+                korean_nnp: {
+                  type: 'custom',
+                  tokenizer: 'mecab_ko_standard_tokenizer',
+                  filter: [
+                    'nnp_filter',
                   ]
                 },
               }
@@ -183,9 +194,19 @@ co(function* () {
             index_analyzer: 'korean',
             search_analyzer: 'standard'
           },
+          title_p: {
+            type: 'string',
+            index_analyzer: 'korean_nnp',
+            search_analyzer: 'standard'
+          },
           body: {
             type: 'string',
             index_analyzer: 'korean',
+            search_analyzer: 'standard'
+          },
+          body_p: {
+            type: 'string',
+            index_analyzer: 'korean_nnp',
             search_analyzer: 'standard'
           },
         }
@@ -213,7 +234,9 @@ co(function* () {
         press: ret.press,
         category: ret.category,
         title: ret.title,
+        title_p: ret.title,
         body: ret.body,
+        body_p: ret.body,
         date: ret.date,
       }
     });
