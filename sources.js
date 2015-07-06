@@ -7,9 +7,9 @@ var moment = require('moment');
  */
 var datasources = {
   chosun_pol: {
-
     press: '조선일보',
     category: '정치',
+    encoding: 'euc_kr',
     url: function (p) {
       return 'http://news.chosun.com/svc/list_in/list.html?catid=2&source=1&pn=' + p;
     },
@@ -63,6 +63,65 @@ var datasources = {
         $newsbody = $('#news_body_id');
         body = $newsbody.children('p').text();
       }
+
+      body = body.trim();
+
+      return {
+        title: title,
+        date: date,
+        body: body,
+      };
+    }
+  },
+  donga_pol: {
+
+    press: '동아일보',
+    category: '정치',
+    encoding: 'utf8',
+    url: function (p) {
+      return 'http://news.donga.com/List/00?p='+p+'&ymd=&m=NP';
+    },
+    next: function (p) {
+      return p + 16;
+    },
+    parseList: function ($) {
+
+      var $articleList = $('.articleList');
+      if ($articleList.length === 0) {
+        throw new Error('empty article list');
+      }
+
+      var ret = [];
+
+      $('.articleList').each(function (index, elem) {
+        var $elem = $(elem);
+        var $link = $elem.find('.title a');
+
+        ret.push($link.attr('href'));
+      });
+
+      return ret;
+    },
+
+    parseArticle: function ($) {
+
+      // Find title
+      var $title = $('.article_title02 h1');
+      var title = $title.text();
+
+      // Find date
+      var datetext = $('.title_foot .date').text().trim();
+      var date = moment(datetext, 'YYYY.MM.DD HH:mm:ss');
+
+      // Find body
+      var body = '';
+
+      var $newsbody = $('.article_txt');
+      $newsbody.children('div').remove();
+      $newsbody.children('script').remove();
+      $newsbody.children('iframe').remove();
+      $newsbody.children('a').remove();
+      body = $newsbody.text();
 
       body = body.trim();
 

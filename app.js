@@ -12,7 +12,13 @@ var iconv = new Iconv('EUC-KR', 'UTF-8');
 
 var sources = require('./sources');
 
-var sourceId = 'chosun_pol';
+var sourceId = '';
+process.argv.forEach(function(val, index, array) {
+  if (val.indexOf('source') === 0) {
+    sourceId = val.substr(7);
+  }
+});
+
 var source = sources(sourceId);
 
 mkdirp.sync(__dirname + '/.cache');
@@ -27,7 +33,12 @@ var reqget = {
       request.get({
         uri: url,
         encoding: null,
-      }, done);
+      }, function (err, res, body) {
+        if (err) { return done(err); }
+        body = body.toString();
+        var $ = cheerio.load(body);
+        done(null, $);
+      });
     };
   },
   euc_kr: function (url) {
@@ -37,7 +48,7 @@ var reqget = {
         encoding: null,
       }, function (err, res, body) {
         if (err) { return done(err); }
-        var body = iconv.convert(body).toString();
+        body = iconv.convert(body).toString();
         var $ = cheerio.load(body);
         done(null, $);
       });
@@ -71,7 +82,7 @@ co(function* () {
 
     console.log('Request list: ', url);
 
-    var $list = yield reqget.euc_kr(url);
+    var $list = yield reqget[source.encoding](url);
 
     var links = source.parseList($list);
 
@@ -80,7 +91,7 @@ co(function* () {
       let link = links[i];
 
       console.log('Request articles', link);
-      let $article = yield reqget.euc_kr(link);
+      let $article = yield reqget[source.encoding](link);
 
       let ret = source.parseArticle($article);
 
@@ -104,6 +115,8 @@ co(function* () {
         body: ret.body,
         url: link,
       }, { upsert: true });
+
+      console.log('Result: ', rawId);
     }
 
     yield processList(source.next(p));
