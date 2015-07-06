@@ -52,6 +52,7 @@ var ArticleSchema = new Schema({
   title: { type: String },
   date: { type: Date },
   body: { type: String },
+  url: { type: String },
 });
 
 var Article = mongoose.model('Article', ArticleSchema);
@@ -101,6 +102,7 @@ co(function* () {
         title: ret.title,
         date: ret.date.toDate(),
         body: ret.body,
+        url: link,
       }, { upsert: true });
     }
 
