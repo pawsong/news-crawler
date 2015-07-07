@@ -28,7 +28,10 @@ var datasources = {
 
           if ($link.length === 0) { return; }
 
-          ret.push($link.attr('href'));
+          var link = $link.attr('href');
+          if (link.indexOf('premium.chosun.com') !== -1) { return; }
+
+          ret.push(link);
         });
 
       } else {
@@ -41,7 +44,10 @@ var datasources = {
 
           if ($link.length === 0) { return; }
 
-          ret.push($link.attr('href'));
+          var link = $link.attr('href');
+          if (link.indexOf('premium.chosun.com') !== -1) { return; }
+
+          ret.push(link);
         });
       }
 
