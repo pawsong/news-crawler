@@ -20,6 +20,13 @@ process.argv.forEach(function(val, index, array) {
   }
 });
 
+var murl = 'localhost';
+process.argv.forEach(function(val, index, array) {
+  if (val.indexOf('murl') === 0) {
+    murl = val.substr('murl'.length + 1);
+  }
+});
+
 var source = sources(sourceId);
 
 mkdirp.sync(__dirname + '/.cache');
@@ -60,7 +67,7 @@ var reqget = {
 co(function* () {
 
   yield function (done) {
-    mongoose.connect('mongodb://localhost/gnews', done);
+    mongoose.connect('mongodb://'+murl+'/gnews', done);
   };
 
   function* processList(p) {
