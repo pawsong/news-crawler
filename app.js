@@ -86,6 +86,8 @@ co(function* () {
 
       let link = links[i];
 
+      if (!link) { continue; }
+
       console.log('Request articles', link);
       let $article = yield reqget[source.encoding](link);
 
