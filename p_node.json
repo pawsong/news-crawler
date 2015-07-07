@@ -1,11 +1,15 @@
 {
   "apps" : [{
-    "name"       : "donga_pol",
+    "name"       : "chosun_soc",
     "script"     : "app.js",
-    "args"        : ["source=donga_pol"],
+    "args"        : ["source=chosun_soc"],
   }, {
-    "name"       : "han_pol_1550",
+    "name"       : "donga_soc",
     "script"     : "app.js",
-    "args"        : ["source=han_pol"],
+    "args"        : ["source=donga_soc"],
+  }, {
+    "name"       : "han_soc",
+    "script"     : "app.js",
+    "args"        : ["source=han_soc"],
   }]
 }
