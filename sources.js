@@ -88,6 +88,17 @@ var datasources = {
       };
     }
   },
+  chosun_soc: {
+    press: '<%= chosun_pol.press %>',
+    category: '사회',
+    encoding: '<%= chosun_pol.encoding %>',
+    url: function (p) {
+      return 'http://news.chosun.com/svc/list_in/list.html?catid=3&source=1&pn=' + p;
+    },
+    next: '<%= chosun_pol.next %>',
+    parseList: '<%= chosun_pol.parseList %>',
+    parseArticle: '<%= chosun_pol.parseArticle %>',
+  },
   donga_pol: {
 
     press: '동아일보',
