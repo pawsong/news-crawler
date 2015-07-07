@@ -163,6 +163,17 @@ var datasources = {
       };
     }
   },
+  donga_soc: {
+    press: '<%= donga_pol.press %>',
+    category: '사회',
+    encoding: '<%= donga_pol.encoding %>',
+    url: function (p) {
+      return 'http://news.donga.com/List/03?p='+p+'&ymd=&m=NP';
+    },
+    next: '<%= donga_pol.next %>',
+    parseList: '<%= donga_pol.parseList %>',
+    parseArticle: '<%= donga_pol.parseArticle %>',
+  },
   han_pol: {
     press: '한겨레',
     category: '정치',
