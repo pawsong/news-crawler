@@ -235,6 +235,17 @@ var datasources = {
 
     }
   },
+  han_soc: {
+    press: '<%= han_pol.press %>',
+    category: '사회',
+    encoding: '<%= han_pol.encoding %>',
+    url: function (p) {
+      return 'http://www.hani.co.kr/arti/society/list'+p+'.html';
+    },
+    next: '<%= han_pol.next %>',
+    parseList: '<%= han_pol.parseList %>',
+    parseArticle: '<%= han_pol.parseArticle %>',
+  },
 };
 
 /*
