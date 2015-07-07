@@ -1,15 +1,11 @@
 {
   "apps" : [{
-    "name"       : "chosun_soc",
+    "name"       : "donga_soc_16000",
     "script"     : "app.js",
-    "args"        : ["source=chosun_soc"],
+    "args"        : ["source=donga_soc", "murl=54.64.48.249"],
   }, {
-    "name"       : "donga_soc",
+    "name"       : "han_soc_700",
     "script"     : "app.js",
-    "args"        : ["source=donga_soc"],
-  }, {
-    "name"       : "han_soc",
-    "script"     : "app.js",
-    "args"        : ["source=han_soc"],
+    "args"        : ["source=han_soc", "murl=54.64.48.249"],
   }]
 }
