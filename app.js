@@ -27,11 +27,18 @@ process.argv.forEach(function(val, index, array) {
   }
 });
 
+var cachePostfix = '';
+process.argv.forEach(function(val, index, array) {
+  if (val.indexOf('cpx') === 0) {
+    cachePostfix = val.substr('cpx'.length + 1);
+  }
+});
+
 var source = sources(sourceId);
 
 mkdirp.sync(__dirname + '/.cache');
 
-var cacheFile = __dirname + '/.cache/p_' + sourceId;
+var cacheFile = __dirname + '/.cache/p_' + sourceId + cachePostfix;
 
 var co = require('co');
 
