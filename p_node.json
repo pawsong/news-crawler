@@ -3,13 +3,16 @@
     "name"       : "chosun_soc",
     "script"     : "app.js",
     "args"        : ["source=chosun_soc"],
+    "max_memory_restart" : "300M",
   }, {
     "name"       : "donga_soc",
     "script"     : "app.js",
     "args"        : ["source=donga_soc"],
+    "max_memory_restart" : "300M",
   }, {
     "name"       : "han_soc",
     "script"     : "app.js",
     "args"        : ["source=han_soc"],
+    "max_memory_restart" : "300M",
   }]
 }
