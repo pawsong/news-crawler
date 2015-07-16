@@ -49,7 +49,20 @@ var datasources = {
 
       // Find category & subcategory
       var $catCont = $('#content .art_title_2011 > dl');
-      var category = $catCont.children('dt').text().trim();
+      var $catImg = $catCont.find('a img');
+
+      var imgSrc = $catImg.length > 0 ? $catImg.attr('src') : '';
+
+      var category = '';
+
+      if (imgSrc === 'http://image.chosun.com/cbz/renewal_2012/news_title_fin.gif') {
+        category = '정책 금융';
+      } else if (imgSrc === 'http://image.chosun.com/cbz/renewal_2012/news_title_wz.gif') {
+        category = 'WeeklyBiz';
+      } else {
+        category = $catCont.children('dt').text().trim();
+      }
+
       var subcategory = $catCont.children('dd').text().trim();
 
       // Find writer
