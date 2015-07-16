@@ -6,6 +6,81 @@ var moment = require('moment');
  * Sources
  */
 var datasources = {
+  chosun_biz: {
+    press: '조선비즈',
+    category: '',
+    encoding: 'utf8',
+    url: function (p) {
+      return 'http://biz.chosun.com/svc/list_in/list_title.html?pn=' + p;
+    },
+    next: function (p) {
+      return p + 1;
+    },
+    parseList: function ($) {
+
+      var ret = [];
+
+      var $articleList = $('#list_area .title_only');
+      if ($articleList.length === 0) { return; }
+
+      $articleList.each(function (index, elem) {
+        var $elem = $(elem);
+        var $link = $elem.find('#tit a');
+
+        if ($link.length === 0) { return; }
+
+        var link = $link.attr('href');
+        if (link.indexOf('premium.chosun.com') !== -1) { return; }
+
+        ret.push('http://biz.chosun.com' + link);
+      });
+
+      return ret;
+    },
+
+    parseArticle: function ($) {
+
+      // Find title
+      var $title = $('#title_text');
+      if ($title.length === 0) { return null; }
+
+      var title = $title.text();
+
+      // Find category & subcategory
+      var $catCont = $('#content .art_title_2011 > dl');
+      var category = $catCont.children('dt').text().trim();
+      var subcategory = $catCont.children('dd').text().trim();
+
+      // Find writer
+      var $writer = $('#j1');
+      $writer.find('div').remove();
+      var writer = $writer.text().trim();
+
+      // Find date
+      var datetext = $('#date_text').text().trim().substr(5, 21);
+      var date = moment(datetext, 'YYYY.MM.DD HH:mm');
+
+      if (!date.isValid()) { throw new Error('Invalid date: ' + datetext); }
+
+      // Find body
+      var $newsbody = $('#article_2011');
+      $newsbody.find('.date_ctrl_2011').remove();
+      $newsbody.find('style').remove();
+      $newsbody.find('script').remove();
+
+      var body = $newsbody.text().trim();
+
+      return {
+        title: title,
+        date: date,
+        body: body,
+        writer: writer,
+        category: category,
+        subcategory: subcategory,
+      };
+    }
+
+  },
   chosun_pol: {
     press: '조선일보',
     category: '정치',
