@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name"       : "chosun_biz_1",
+    "script"     : "app.js",
+    "args"        : [
+      "source=chosun_biz", 
+      "murl=54.64.48.249",
+      "cpx=_1"
+    ],
+    "max_memory_restart" : "300M",
+  }]
+}

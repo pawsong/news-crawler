@@ -74,7 +74,7 @@ var reqget = {
 co(function* () {
 
   yield function (done) {
-    mongoose.connect('mongodb://'+murl+'/gnews', done);
+    mongoose.connect('mongodb://'+murl+'/' + (source.db || 'gnews'), done);
   };
 
   function* processList(p) {

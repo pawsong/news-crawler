@@ -8,6 +8,7 @@ var moment = require('moment');
 var datasources = {
   chosun_biz: {
     press: '조선비즈',
+    db: 'chosunbiz',
     category: '',
     encoding: 'utf8',
     url: function (p) {
